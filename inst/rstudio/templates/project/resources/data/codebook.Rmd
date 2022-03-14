@@ -1,0 +1,16 @@
+---
+title: "Codebook for Data for 'Your Paper Title Here'"
+author: "Your Names(s) Here"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: html_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Data Sources and Data Collection
+
+# Data Cleaning
+
+# Data Description

@@ -2,3 +2,49 @@ Title: Research Project
 Binding: research_project_skeleton
 OpenFiles: README.md
 Icon: quack-icon-square.png
+
+Parameter: author
+Widget: TextInput
+Label: Author
+Position: left
+
+Parameter: title
+Widget: TextInput
+Label: Title
+Position: right
+
+Parameter: git
+Widget: CheckboxInput
+Label: Create a git repository
+Default: On
+Position: left
+
+Parameter: ignore_pdf
+Widget: CheckboxInput
+Label: Add *.pdf to .gitignore
+Default: On
+Position: left
+
+Parameter: ignore_binary_data
+Widget: CheckboxInput
+Label: Add *.rds & *.RData to .gitignore
+Default: On
+Position: left
+
+Parameter: separate_analysis
+Widget: CheckboxInput
+Label: Add separate 'analysis' directory
+Default: Off
+Position: left
+
+Parameter: bib
+Widget: FileInput
+Label: Import bib file
+Position: right
+
+Parameter: type
+Widget: SelectInput
+Label: Project type
+Fields: Empirical, Formal theory, Both
+Default: Empirical
+Position: right

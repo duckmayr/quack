@@ -1,0 +1,14 @@
+---
+title: "Empirical Analysis for 'Your Paper Title Here'"
+author: "Your Names(s) Here"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: html_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In some circumstances, typically involving particularly complex or computationally intensive empirical analysis, it may make sense to separate at least some of the code necessary to reproduce a paper's results from the paper's main R Markdown file.
+Even in most cases involving computationally intensive code, it may be advisable to keep the code in the main R Markdown file and simply cache the results using the `cache = TRUE` [chunk option](https://yihui.org/knitr/options/#cache), but this is a question of personal taste.
+If you choose to separate at least some of code from the main R Markdown file, the `quack` developer(s) still recommend using R Markdown to conduct the analysis as it makes annotation and explanation much easier; you can add such analysis to this file.
