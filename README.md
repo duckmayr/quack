@@ -1,7 +1,7 @@
 # quack <img src="man/figures/logo.png" align="right" height="139" />
 
 <!-- badges: start -->
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)]
+![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)
 <!-- badges: end -->
 
 Don't be a 'quackademic'!
