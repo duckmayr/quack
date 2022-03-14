@@ -1,6 +1,7 @@
 # quack <img src="man/figures/logo.png" align="right" height="139" />
 
 <!-- badges: start -->
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)]
 <!-- badges: end -->
 
 Don't be a 'quackademic'!
@@ -15,3 +16,7 @@ You can install the development version of quack from [GitHub](https://github.co
 # install.packages("devtools")
 devtools::install_github("duckmayr/quack")
 ```
+
+## Contributing
+
+Before contributing, please consult the contributing guidelines in CONTRIBUTING.md, as well as the code of conduct in CODE_OF_CONDUCT.md.
