@@ -1,6 +1,7 @@
 # quack <img src="man/figures/logo.png" align="right" height="139" />
 
 <!-- badges: start -->
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)
 <!-- badges: end -->
 
