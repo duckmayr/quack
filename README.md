@@ -1,0 +1,17 @@
+# quack <img src="man/figures/logo.png" align="right" height="139" />
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+Don't be a 'quackademic'!
+Manage your research projects in an organized and consistent way.
+This package provides an R Project template to setup research project directories in a consistent way conveniently.
+
+## Installation
+
+You can install the development version of quack from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("duckmayr/quack")
+```
