@@ -3,7 +3,7 @@ check_packages <- function(path = getwd()) {
         path = path, progress = FALSE, errors = "ignored"
     )
     detected_packages <- unique(detected_packages$Package)
-    installed_packages <- as.data.frame(installed.packages())
+    installed_packages <- as.data.frame(utils::installed.packages())
     indices <- which(installed_packages$Package %in% detected_packages)
     detected_versions <- installed_packages$Version[indices]
     detected_packages <- installed_packages$Package[indices]
