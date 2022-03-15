@@ -61,3 +61,23 @@ check_for_other_software <- function(path = getwd()) {
     }
     return(invisible(bad_files))
 }
+
+check_for_R_version <- function(path = getwd()) {
+    README <- readLines(con = find_README(path))
+    major  <- R.version$major
+    minor  <- R.version$minor
+    this_version_pattern <- paste0("R\\W\\D*", major, "\\.", minor)
+    any_version_pattern  <- "R\\W[^.\n]*[1-4]\\.[0-9]+\\.[0-9]+"
+    has_this_version <- any(grepl(pattern = this_version_pattern, x = README))
+    has_any_version  <- any(grepl(pattern = any_version_pattern,  x = README))
+    if ( has_this_version ) {
+        cli::cli_alert_success("Correct R version listed in README")
+    } else if ( has_any_version ) {
+        cli::cli_alert_warning("The wrong R version may be listed in README.")
+        cat(sprintf("  Your current R version is %s.%s.\n", major, minor))
+        cat("  Please make sure the right R version is listed.\n")
+    } else {
+        cli::cli_alert_danger("Could not find any R version listed in README")
+    }
+    return(invisible(R.version.string))
+}
