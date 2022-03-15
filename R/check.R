@@ -32,3 +32,33 @@ check_packages <- function(path = getwd()) {
     }
     return(invisible(expected_entries[missing_entries]))
 }
+
+check_files <- function(path = getwd()) {
+    path <- normalizePath(path.expand(path))
+    is_git_repo <- path == try(gert::git_find(path), silent = TRUE)
+    if ( is_git_repo ) {
+        files <- gert::git_ls(path)$path
+        files <- setdiff(files, ".gitignore")
+    } else {
+        files <- list.files(path = path, recursive = TRUE, all.files = TRUE)
+    }
+    README <- normalizePath(file.path(path, "README.md"))
+    files_in_path <- normalizePath(list.files(path = path, full.names = TRUE))
+    if ( !(README %in% files_in_path) ) {
+        stop("Could not find README.md in ", path)
+    }
+    README <- readLines(con = README)
+    not_listed <- which(sapply(files, function(f) {
+        !any(grepl(pattern = f, x = README))
+    }))
+    msg_ending <- "listed correctly in README"
+    if ( length(not_listed) > 0 ) {
+        cli::cli_alert_danger("Files detected but not {msg_ending}:")
+        for ( i in not_listed ) {
+            cat("    - ", files[i], "\n", sep = "")
+        }
+    } else {
+        cli::cli_alert_success("All detected files {msg_ending}")
+    }
+    return(invisible(files[not_listed]))
+}
