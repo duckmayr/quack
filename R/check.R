@@ -1,3 +1,12 @@
+find_README <- function(path = getwd()) {
+    README <- normalizePath(path.expand(file.path(path, "README.md")))
+    files_in_path <- normalizePath(list.files(path = path, full.names = TRUE))
+    if ( !(README %in% files_in_path) ) {
+        stop("Could not find README.md in ", path)
+    }
+    return(README)
+}
+
 check_packages <- function(path = getwd()) {
     detected_packages <- renv::dependencies(
         path = path, progress = FALSE, errors = "ignored"
@@ -10,12 +19,7 @@ check_packages <- function(path = getwd()) {
     expected_entries <- paste0(
         "+ ", detected_packages, ", version ", detected_versions
     )
-    README <- normalizePath(path.expand(file.path(path, "README.md")))
-    files_in_path <- normalizePath(list.files(path = path, full.names = TRUE))
-    if ( !(README %in% files_in_path) ) {
-        stop("Could not find README.md in ", path)
-    }
-    README <- readLines(con = README)
+    README <- readLines(con = find_README(path))
     pkg_pattern <- "\\+ [^,]+, version [^\n]+"
     actual_list <- extract_matches(pattern = pkg_pattern, text = README)
     missing_entries <- which(sapply(expected_entries, function(e) {
@@ -42,12 +46,7 @@ check_files <- function(path = getwd()) {
     } else {
         files <- list.files(path = path, recursive = TRUE, all.files = TRUE)
     }
-    README <- normalizePath(file.path(path, "README.md"))
-    files_in_path <- normalizePath(list.files(path = path, full.names = TRUE))
-    if ( !(README %in% files_in_path) ) {
-        stop("Could not find README.md in ", path)
-    }
-    README <- readLines(con = README)
+    README <- readLines(con = find_README(path))
     not_listed <- which(sapply(files, function(f) {
         !any(grepl(pattern = f, x = README))
     }))
