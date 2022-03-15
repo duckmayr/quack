@@ -1,24 +1,20 @@
 check_packages <- function(path = getwd()) {
-    packages <- find_packages(path)
-    expected_entries <- paste0(
-        "+ ", packages$Package, ", version ", packages$Version
-    )
     README <- readLines(con = find_README(path))
-    pkg_pattern <- "\\+ [^,]+, version [^\n]+"
-    actual_list <- extract_matches(pattern = pkg_pattern, text = README)
-    missing_entries <- which(sapply(expected_entries, function(e) {
-        !any(grepl(pattern = e, x = actual_list))
-    }))
+    pkgs   <- find_packages(path)
+    listed <- sapply(1:nrow(pkgs), function(i) {
+        pattern <- sprintf("%s\\W[^.\n]*%s", pkgs$Package[i], pkgs$Version[i])
+        any(grepl(pattern = pattern, x = README))
+    })
     msg_ending <- "listed correctly in README"
-    if ( length(missing_entries) > 0 ) {
-        cli::cli_alert_danger("Packages detected but not {msg_ending}:")
-        for ( i in missing_entries ) {
-            cat("    ", expected_entries[i], "\n", sep = "")
-        }
-    } else {
+    if ( all(listed) ) {
         cli::cli_alert_success("All detected packages {msg_ending}")
+    } else {
+        cli::cli_alert_danger("Packages detected but not {msg_ending}:")
+        for ( i in which(!listed) ) {
+            cat(sprintf("    - %s v %s\n", pkgs$Package[i], pkgs$Version[i]))
+        }
     }
-    return(invisible(expected_entries[missing_entries]))
+    return(invisible(pkgs[!listed, ]))
 }
 
 check_file_list <- function(path = getwd()) {
