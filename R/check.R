@@ -21,7 +21,7 @@ check_packages <- function(path = getwd()) {
     return(invisible(expected_entries[missing_entries]))
 }
 
-check_files <- function(path = getwd()) {
+check_file_list <- function(path = getwd()) {
     files  <- find_files(path)
     README <- readLines(con = find_README(path))
     not_listed <- which(sapply(files, function(f) {
@@ -37,4 +37,27 @@ check_files <- function(path = getwd()) {
         cli::cli_alert_success("All detected files {msg_ending}")
     }
     return(invisible(files[not_listed]))
+}
+
+check_for_other_software <- function(path = getwd()) {
+    files  <- find_files(path)
+    README <- readLines(con = find_README(path))
+    bad_files <- character()
+    python_files <- which(grepl(pattern = "\\.py$", x = files))
+    stata_files <- which(grepl(pattern = "\\.do$", x = files))
+    if ( length(python_files) > 0 ) {
+        if ( !any(grepl(pattern = "python", x = README, ignore.case = TRUE)) ) {
+            msg <- "Python scripts found but Python isn't discussed in README"
+            cli::cli_alert_danger(msg)
+        }
+        bad_files <- c(bad_files, files[python_files])
+    }
+    if ( length(stata_files) > 0 ) {
+        if ( !any(grepl(pattern = "stata", x = README, ignore.case = TRUE)) ) {
+            msg <- "Stata do files found but Stata isn't discussed in README"
+            cli::cli_alert_danger(msg)
+        }
+        bad_files <- c(bad_files, files[stata_files])
+    }
+    return(invisible(bad_files))
 }
