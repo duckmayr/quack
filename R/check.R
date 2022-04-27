@@ -77,3 +77,49 @@ check_for_R_version <- function(path = getwd()) {
     }
     return(invisible(R.version.string))
 }
+
+#' Check research project for best practices
+#'
+#'
+#'
+#' @param path The path to the project's root directory; the default is the
+#'     current working directory
+#'
+#' @return Invisibly returns a list with the following elements:
+#' \describe{
+#'     \item{unlisted_files}{
+#'         Files discovered in your project directory that are not described
+#'         in your README file
+#'     }
+#'     \item{current_R_version}{The value \code{\link[base]{R.version.string}}}
+#'     \item{unlisted_packages}{
+#'         A dataframe with the names and version numbers of
+#'         R packages detected in your research project's code that are either
+#'         not listed in your README file, or which are listed in your README
+#'         file in a way that does not reference the version of the package
+#'         currently installed on your machine.
+#'     }
+#'     \item{files_for_other_software}{
+#'         A character vector that includes
+#'         \itemize{
+#'             \item Paths to Python scripts if you do not mention in the
+#'                 README file that Python was used in analysis, and
+#'             \item Paths to Stata do files if you do not mention in the
+#'                 README file that Stata was used in analysis.
+#'         }
+#'     }
+#' }
+#' @export
+check_research_project <- function(path = getwd()) {
+    cli::cli_h1("Checking README")
+    unlisted_files <- check_file_list(path)
+    current_R_version <- check_for_R_version(path)
+    unlisted_packages <- check_packages(path)
+    files_for_other_software <- check_for_other_software(path)
+    return(invisible(list(
+        unlisted_files = unlisted_files,
+        current_R_version = current_R_version,
+        unlisted_packages = unlisted_packages,
+        files_for_other_software = files_for_other_software
+    )))
+}
