@@ -1,0 +1,28 @@
+---
+title: "Title"
+author: "Author(s)"
+date: "`r format(Sys.Date(), '%B %-d, %Y')`"
+fontsize: 12pt
+titlepage: true
+abstract: "Abstract (typically should be 150 words or less)"
+output:
+    bookdown::pdf_document2:
+        toc: false
+        template: quack-article-template.tex
+        includes:
+            in_header: quack-article-preamble.tex
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Introduction
+
+# Literature Review and Theory
+
+# Data and Methods
+
+# Results
+
+# Conclusion
