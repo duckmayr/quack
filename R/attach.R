@@ -1,54 +1,52 @@
-#' Load packages commonly used in data cleaning and analysis
+#' Attach packages commonly used in data cleaning and analysis
 #'
-#' By default this function will load the packages
-#' [dplyr](dplyr::dplyr),
-#' [tidyr](tidyr::tidyr),
-#' [readr](readr::readr),
-#' and [ggplot2](ggplot2::ggplot2).
-#' You can avoid loading any of these packages via the `packages_to_omit`
+#' By default this function will attach the packages
+#' `dplyr`, `tidyr`, `readr`, and `ggplot2`.
+#' You can avoid attaching any of these packages via the `packages_to_omit`
 #' parameter.
 #' If any additional packages are requested via the `additional_packages`
-#' parameter, those packages will be loaded as well.
-#' If any of the packages the function attempts to load are not installed,
-#' the function will issue a warning that the unavailable package(s) could not
-#' be loaded.
+#' parameter, those packages will be attached as well.
+#' Information will be printed to the console listing which packages were
+#' attached, which could not be attached, and what functions from the attached
+#' packages mask other functions that were on the search path before calling
+#' `attach_common_packages()`.
 #'
 #' @param additional_packages A character vector giving the names of additional
-#'     packages to load, or `NULL` (the default) if no additional packages are
-#'     needed.
+#'     packages to attach, or `NULL` (the default) if no additional packages
+#'     are needed.
 #' @param packages_to_omit A character vector giving the names of packages
-#'     *not* to load, or `NULL` (the default) if no packages need be omitted.
+#'     *not* to attach, or `NULL` (the default) if no packages need be omitted.
 #'
 #' @return Invisibly returns a character vector giving the names of the
-#'     packages loaded
+#'     packages successfully attached
 #'
 #' @examples
 #' \dontrun{
-#' load_common_packages()
+#' attach_common_packages()
 #' }
 #'
 #' @export
-load_common_packages = function(
+attach_common_packages = function(
         additional_packages = NULL,
         packages_to_omit = NULL
 ) {
     pkgs = setdiff(c("dplyr", "tidyr", "readr", "ggplot2"), packages_to_omit)
     pkgs = c(pkgs, additional_packages)
-    loaded = NULL
+    attached = NULL
     for ( pkg in pkgs ) {
         present = suppressPackageStartupMessages(
             require(pkg, character.only = TRUE, quietly = TRUE)
         )
         if ( present ) {
-            loaded = c(loaded, pkg)
+            attached = c(attached, pkg)
         }
     }
-    cli::cat_line(cli::rule(center = "Packages loaded"))
-    for ( pkg in loaded ) {
-        cli::cli_alert_success("Loaded package {pkg}")
+    cli::cat_line(cli::rule(center = "Packages attached"))
+    for ( pkg in attached ) {
+        cli::cli_alert_success("Attached package {pkg}")
     }
-    for ( pkg in setdiff(pkgs, loaded) ) {
-        cli::cli_alert_danger("Could not load package {pkg}")
+    for ( pkg in setdiff(pkgs, attached) ) {
+        cli::cli_alert_danger("Could not attach package {pkg}")
     }
     cli::cat_line(cli::rule(center = "Function conflicts"))
     ## Get a data frame of all objects we can find
@@ -86,5 +84,5 @@ load_common_packages = function(
     })
     masks = paste(masking_calls, "masks", masked_calls)
     sapply(masks, cli::cli_alert_danger)
-    return(invisible(loaded))
+    return(invisible(attached))
 }
