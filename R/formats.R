@@ -22,7 +22,33 @@ article = function(...) {
         bookdown::pdf_document2(
             toc = FALSE,
             template = custom_template,
-            includes = rmarkdown::includes(in_header = custom_preamble)
+            includes = rmarkdown::includes(in_header = custom_preamble),
+            ...
+        )
+    )
+}
+
+#' Custom formatted Beamer presentation
+#'
+#' @param ... Arguments to be passed to [bookdown::beamer_presentation2()]
+#'
+#' @return An R Markdown output format object
+#'
+#' @export
+presentation = function(...) {
+    xsty  = function(x) gsub("\\.sty", "", x)
+    theme = xsty(resource_path("presentation", "beamerthemeAustin.sty"))
+    color = xsty(resource_path("presentation", "beamercolorthemelonghorn.sty"))
+    pream = tempfile()
+    calls = c(
+        paste0("\\usepackage{", theme, "}"),
+        paste0("\\usepackage{", color, "}")
+    )
+    writeLines(calls, pream)
+    return(
+        bookdown::beamer_presentation2(
+            includes = rmarkdown::includes(in_header = pream),
+            ...
         )
     )
 }
