@@ -57,20 +57,6 @@ $endif$
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 
-$if(indent)$
-$else$
-\makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
-\makeatother
-$endif$
-
 $if(verbatim-in-note)$
 \usepackage{fancyvrb}
 $endif$
@@ -299,7 +285,7 @@ $if(abstract)$
 \vspace{2\baselineskip}
 \begin{center}
     {\sffamily\large\bfseries Abstract}
-    
+
     $abstract$
 \end{center}
 \vspace{2\baselineskip}

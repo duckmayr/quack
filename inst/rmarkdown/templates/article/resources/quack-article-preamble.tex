@@ -1,9 +1,9 @@
+%% We always want nice tables
 \usepackage{booktabs}
-\usepackage{titlesec}
-\usepackage{noto-sans}
-\usepackage[default,regular,black]{sourceserifpro}
-\titleformat{\chapter}[display]{\sffamily\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
-\titleformat*{\section}{\sffamily\Large\bfseries}
-\titleformat*{\subsection}{\sffamily\large\bfseries}
-\titleformat*{\subsubsection}{\sffamily\normalsize\bfseries}
-
+%% Customize font: Use Noto Sans everywhere
+\usepackage[sfdefault]{noto-sans}
+%% Increase line spacing a bit, which looks better with Noto Sans
+\usepackage{setspace}
+\setstretch{1.2}
+%% Similarly we want white space between paragraphs rather than indents
+\usepackage{parskip}
