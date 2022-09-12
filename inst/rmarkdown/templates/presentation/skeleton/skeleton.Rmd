@@ -1,7 +1,7 @@
 ---
 title: "Template Title"
 author: "Your Name"
-date: "`r format(Sys.time(), '%B %d, %Y')`"
+date: "`r gsub(' 0', ' ', x = format(Sys.Date(), '%B %d, %Y'))`"
 urlcolor: Blue
 output: quack::presentation
 ---
