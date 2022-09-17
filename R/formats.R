@@ -16,16 +16,21 @@ resource_path = function(template, ...) {
 #'
 #' @export
 article = function(...) {
-    custom_template = resource_path("article", "quack-article-template.tex")
-    custom_preamble = resource_path("article", "quack-article-preamble.tex")
-    return(
-        bookdown::pdf_document2(
-            toc = FALSE,
-            template = custom_template,
-            includes = rmarkdown::includes(in_header = custom_preamble),
-            ...
-        )
-    )
+    template = resource_path("article", "quack-article-template.tex")
+    preamble = resource_path("article", "quack-article-preamble.tex")
+    dots = list(...)
+    if ( "template" %in% names(dots ) ) {
+        stop("Do not use `template` YAML option when using {quack} formats")
+    }
+    if ( "includes" %in% names(dots) ) {
+        includes = dots$includes
+        includes$in_header = c(preamble, includes$in_header)
+        dots$includes = includes
+    } else {
+        dots$includes = rmarkdown::includes(in_header = preamble)
+    }
+    args = c(dots, toc = FALSE, template = template)
+    return(do.call(bookdown::pdf_document2, args))
 }
 
 #' Custom formatted Beamer presentation
