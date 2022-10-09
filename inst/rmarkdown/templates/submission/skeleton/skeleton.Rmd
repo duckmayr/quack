@@ -1,0 +1,25 @@
+---
+title: "Title"
+author: "Author(s)"
+date: "`r gsub(' 0', ' ', x = format(Sys.Date(), '%B %d, %Y'))`"
+abstract: "Abstract (typically should be 150 words or less)"
+anonymized: true
+wordcount: "XXXX"
+output: quack::submission
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Introduction
+
+# Literature Review and Theory
+
+# Data and Methods
+
+# Results
+
+# Conclusion
+
+# References

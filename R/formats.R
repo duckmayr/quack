@@ -57,3 +57,15 @@ presentation = function(...) {
         )
     )
 }
+
+#' PDF document formatted to meet APSR, AJPS, and JOP submission standards
+#'
+#' @param ... Arguments to be passed to [bookdown::pdf_document2()]
+#'
+#' @return An R Markdown output format object
+#'
+#' @export
+submission = function(...) {
+    template = resource_path("submission", "quack-submission-template.tex")
+    return(bookdown::pdf_document2(template = template, ...))
+}
