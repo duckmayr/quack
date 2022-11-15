@@ -1,0 +1,107 @@
+---
+title: "Class name, GOV 123"
+date: "Semester Year"
+classroom: "Building Room #"
+classhours: "Day(s) Start Time -- End Time"
+
+author: "Firstname Lastname"
+instructorpronouns: "They/Them"
+email: "Use Canvas to email"
+office: "Building Room #"
+officehours: "Day Start Time -- End Time or by appointment"
+
+TA: "Firstname Lastname"
+TApronouns: "They/Them"
+TAemail: "Use Canvas to email"
+TAoffice: "Building Room #"
+TAofficehours: "Day Start Time -- End Time or by appointment"
+
+titlecolor: "BurntOrange"
+sectioncolor: "BurntOrange"
+subsectioncolor: "Blue"
+urlcolor: "Blue"
+
+output: quack::syllabus
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Course Description
+
+Provide a brief course description.
+
+# Course Objectives
+
+When you complete the course, you will be able to:
+
+- A
+- B
+- C
+
+# Required Readings
+
+The required text for the course is XXX.
+
+There are other required short readings that will be available on Canvas.
+
+# Course Assignments
+
+List and describe the required assignments.
+
+# Grading
+
+Course grades are determined using a weighted average of the following four components:
+
+- X%: Assignment 1
+- Y%: Assignment 2
+
+Letter grades will be awarded based on the following cutoffs:
+
+```{r grade-cutoffs}
+grades  = c("A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F")
+cutoffs = c( 94,   90,   87,  83,   80,   77,  73,   70,   67,  63,   60, "<60")
+cutoffs = c(94, 90, 87, 83, 80, 77, 73, 70, 67, 63, 60, "$<60$")
+kableExtra::kbl(
+    x = data.frame(Grade = grades, Cutoff = cutoffs),
+    align = "lr",
+    booktabs = TRUE,
+    escape = FALSE,
+    table.envir = "center",
+    linesep = ""
+)
+```
+
+Please note: to ensure fairness, all numbers are absolute, and will not be rounded up or down at any stage.
+Thus a B- will be inclusive of all scores of 80.000 through 83.999.
+The University does not recognize the grade of A+.
+
+I may choose to curve exam grades; if so, the curve will satisfy the following properties:
+
+- No student will have a lower score after the curve than they had before it
+- The rank ordering of individual grades will be preserved
+- Higher scoring students will not be helped more by the curve than lower scoring students
+
+# Course Policies
+
+## Make-Up Exam Policy
+
+The exam dates are listed below in the course schedule.
+If you know of a compelling reason that you cannot be present during a scheduled exam, please contact me via email at least one week ahead of time to discuss scheduling a makeup exam.
+
+If you miss an exam without previously scheduling a makeup exam, you will likely not be permitted to take the exam.
+Only in extreme circumstances will makeup exams be permitted when not scheduled ahead of time.
+
+## Regrading Policy
+
+If you believe I have committed an error in grading your exam, please submit a regrade request to me in writing via email outlining the specific errors you have discovered and explaining why you believe them to be grading errors.
+This request must be submitted within one week of receiving your graded exam.
+
+\newpage
+
+# Course Schedule
+
+\newpage
+
+# University Policies

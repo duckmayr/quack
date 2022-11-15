@@ -69,3 +69,15 @@ submission = function(...) {
     template = resource_path("submission", "quack-submission-template.tex")
     return(bookdown::pdf_document2(template = template, ...))
 }
+
+#' PDF document format for syllabi
+#'
+#' @param ... Arguments to be passed to [bookdown::pdf_document2()]
+#'
+#' @return An R Markdown output format object
+#'
+#' @export
+syllabus = function(...) {
+    template = resource_path("syllabus", "quack-syllabus-template.tex")
+    return(bookdown::pdf_document2(template = template, ...))
+}
