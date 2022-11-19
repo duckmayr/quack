@@ -4,11 +4,11 @@
 #' packages used by all R scripts and R Markdown files in a given directory.
 #'
 #' This function looks at all R scripts and R Markdown files contained in a
-#' directory (and its subdirectories) and tries to identify all packages used
-#' in those R scripts and R Markdown files. It looks for names of packages in
-#' [library()] and [require()] calls, as well as packages used in the form
-#' `package::function()` or `package:::function()`. Detection of packages used
-#' may be imperfect, but this should work fairly well.
+#' directory (and its subdirectories if `recursive` is `TRUE`) and tries to
+#' identify all packages used in those R scripts and R Markdown files. It looks
+#' for names of packages in [library()] and [require()] calls, as well as
+#' packages used in the form `package::function()` or `package:::function()`.
+#' Detection of packages used may be imperfect, but it should work fairly well.
 #'
 #' The function also records the versions of those packages currently
 #' installed, as well as the R version being used, and if RStudio is installed,
@@ -16,6 +16,8 @@
 #'
 #' @param path A character vector of length one giving the directory you'd like
 #'     searched for R scripts and R Markdown files
+#' @param recursive Should the function search for R scripts and R Markdown
+#'     files recursively? Default is `TRUE`
 #'
 #' @return An object of class `RequiredPackages`, which is a list of length
 #'     three, with elements
@@ -37,14 +39,14 @@
 #' @seealso [print.RequiredPackages()]
 #'
 #' @export
-list_required_packages = function(path = ".") {
+list_required_packages = function(path = ".", recursive = TRUE) {
     installed_packages = installed.packages()
     packages_used = character()
     files_to_check = list.files(
         path = path,
         pattern = ".*\\.Rmd|.*\\.R",
         full.names = TRUE,
-        recursive = TRUE
+        recursive = recursive
     )
     package_pattern = "(?<=library\\()[A-Za-z0-9.]+"
     package_pattern = paste0(package_pattern, "|(?<=require\\()[A-Za-z0-9.]+")
@@ -95,11 +97,13 @@ print.RequiredPackages = function(x, ...) {
     if ( !is.na(x$RStudio_version) ) {
         cat("- RStudio version", x$RStudio_version, "\n")
     }
-    cat("- R add-on packages\n")
-    packages = x$packages[ , "Package"]
-    versions = x$packages[ , "Version"]
-    for ( i in seq_along(packages) ) {
-        cat("  +", packages[i], "version", versions[i], "\n")
+    if ( nrow(x$packages) > 0 ) {
+        cat("- R add-on packages\n")
+        packages = x$packages[ , "Package"]
+        versions = x$packages[ , "Version"]
+        for ( i in seq_along(packages) ) {
+            cat("  +", packages[i], "version", versions[i], "\n")
+        }
     }
     cat("\n")
     return(invisible(x))

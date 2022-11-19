@@ -4,11 +4,14 @@
 \alias{list_required_packages}
 \title{List packages required by R scripts in a directory}
 \usage{
-list_required_packages(path = ".")
+list_required_packages(path = ".", recursive = TRUE)
 }
 \arguments{
 \item{path}{A character vector of length one giving the directory you'd like
 searched for R scripts and R Markdown files}
+
+\item{recursive}{Should the function search for R scripts and R Markdown
+files recursively? Default is \code{TRUE}}
 }
 \value{
 An object of class \code{RequiredPackages}, which is a list of length
@@ -34,11 +37,11 @@ packages used by all R scripts and R Markdown files in a given directory.
 }
 \details{
 This function looks at all R scripts and R Markdown files contained in a
-directory (and its subdirectories) and tries to identify all packages used
-in those R scripts and R Markdown files. It looks for names of packages in
-\code{\link[=library]{library()}} and \code{\link[=require]{require()}} calls, as well as packages used in the form
-\verb{package::function()} or \verb{package:::function()}. Detection of packages used
-may be imperfect, but this should work fairly well.
+directory (and its subdirectories if \code{recursive} is \code{TRUE}) and tries to
+identify all packages used in those R scripts and R Markdown files. It looks
+for names of packages in \code{\link[=library]{library()}} and \code{\link[=require]{require()}} calls, as well as
+packages used in the form \verb{package::function()} or \verb{package:::function()}.
+Detection of packages used may be imperfect, but it should work fairly well.
 
 The function also records the versions of those packages currently
 installed, as well as the R version being used, and if RStudio is installed,
