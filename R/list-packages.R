@@ -40,7 +40,7 @@
 #'
 #' @export
 list_required_packages = function(path = ".", recursive = TRUE) {
-    installed_packages = installed.packages()
+    installed_packages = utils::installed.packages()
     packages_used = character()
     files_to_check = list.files(
         path = path,
@@ -68,7 +68,7 @@ list_required_packages = function(path = ".", recursive = TRUE) {
         post = "\nCheck to be sure"
         warning(pre, problems, post, call. = FALSE)
     }
-    has_RStudio = require(rstudioapi, quietly = TRUE)
+    has_RStudio = requireNamespace("rstudioapi", quietly = TRUE)
     RStudio_version = "if"(has_RStudio, rstudioapi::versionInfo()$version, NA)
     return(structure(
         .Data = list(

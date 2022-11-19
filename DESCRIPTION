@@ -19,4 +19,7 @@ RoxygenNote: 7.2.2
 Imports: 
     bookdown,
     cli,
-    rmarkdown
+    rmarkdown,
+    stringr
+Suggests: 
+    rstudioapi
