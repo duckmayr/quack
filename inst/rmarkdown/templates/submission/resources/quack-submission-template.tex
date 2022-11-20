@@ -244,6 +244,7 @@ $if(csquotes)$
 \usepackage{csquotes}
 $endif$
 
+\usepackage{titling}
 $if(title)$
 \title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
 $endif$
@@ -257,12 +258,17 @@ $if(subtitle)$
 \subtitle{$subtitle$}
 $endif$
 $if(anonymized)$
+\preauthor{}
+\postauthor{}
 $else$
 \author{$for(author)$$author$$sep$ \and $endfor$}
 $endif$
+$if(date)$
 \date{$date$}
-
-\usepackage{titling}
+$else$
+\predate{}
+\postdate{}
+$endif$
 
 %% Fix fonts
 %% We want Times New Roman for the main text
@@ -298,15 +304,21 @@ $endif$
 
 \begin{titlingpage}
 \maketitle
-\vspace{2\baselineskip}
+$if(abstract)$
+\vspace{\baselineskip}
+\begin{center}
+\textbf{\sffamily\large Abstract}
+\end{center}
 \begin{quote}
-    {\sffamily\large\bfseries Abstract}
-
-    $abstract$
-
-    \vspace{2\baselineskip}
-    $wordcount$
+$abstract$
 \end{quote}
+$endif$
+$if(wordcount)$
+\vspace{\baselineskip}
+\begin{center}
+Word count: $wordcount$
+\end{center}
+$endif$
 \end{titlingpage}
 
 $for(include-before)$
