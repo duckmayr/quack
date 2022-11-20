@@ -3,6 +3,7 @@
 S3method(print,RequiredPackages)
 export(article)
 export(attach_common_packages)
+export(categorize_references)
 export(list_required_packages)
 export(presentation)
 export(submission)
