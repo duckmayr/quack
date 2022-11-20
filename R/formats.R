@@ -67,7 +67,15 @@ presentation = function(...) {
 #' @export
 submission = function(...) {
     template = resource_path("submission", "quack-submission-template.tex")
-    return(bookdown::pdf_document2(template = template, ...))
+    dots = list(...)
+    if ( "template" %in% names(dots ) ) {
+        stop("Do not use `template` YAML option when using {quack} formats")
+    }
+    if ( !("toc" %in% names(dots)) ) {
+        dots$toc = FALSE
+    }
+    args = c(dots, template = template)
+    return(do.call(bookdown::pdf_document2, args))
 }
 
 #' PDF document format for syllabi
