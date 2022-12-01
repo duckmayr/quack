@@ -1,7 +1,7 @@
 ---
 title: "Title"
 author: "Author(s)"
-date: "`r gsub(' 0', ' ', x = format(Sys.Date(), '%B %d, %Y'))`"
+date: "`r quack::american_date_format(Sys.Date())`"
 abstract: "Abstract (typically should be 150 words or less)"
 anonymized: true
 wordcount: "XXXX"
