@@ -29,7 +29,10 @@ article = function(...) {
     } else {
         dots$includes = rmarkdown::includes(in_header = preamble)
     }
-    args = c(dots, toc = FALSE, template = template)
+    if ( !("toc" %in% names(dots)) ) {
+        dots$toc = FALSE
+    }
+    args = c(dots, template = template)
     return(do.call(bookdown::pdf_document2, args))
 }
 

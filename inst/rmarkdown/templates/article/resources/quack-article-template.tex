@@ -316,7 +316,13 @@ $if(colorlinks)$
 \hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$$endif$}
 $endif$
 \setcounter{tocdepth}{$toc-depth$}
+$if(titlepage)$
+\clearpage
+$endif$
 \tableofcontents
+$if(titlepage)$
+\clearpage
+$endif$
 }
 $endif$
 $endif$
